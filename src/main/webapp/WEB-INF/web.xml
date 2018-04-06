@@ -1,0 +1,40 @@
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
+	<display-name>adminsys-be</display-name>
+	
+	<context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            classpath*:/applicationContext.xml,
+            classpath*:/applicationContext-cache.xml,
+            classpath*:/applicationContext-persistence.xml,
+            classpath*:/applicationContext-shiro.xml,
+            classpath*:/applicationContext-metadata.xml,
+            classpath*:/applicationContext-lock.xml
+        </param-value>
+    </context-param>
+	
+	<!-- 前端控制器 -->
+	<servlet>
+		<!-- 名称，真实的文件名需要在这个名字后面加上-servlet后缀 -->
+		<servlet-name>spring-mvc</servlet-name>
+		<!-- DispatcherServlet路径，照写 -->
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+
+		<!-- 这里可以设置前端控制器的路径，如果这一步注释掉，则默认前端控制器的路径为：/WEB-INF/[servlet-name]-servlet.xml -->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring-mvc-servlet.xml</param-value>
+		</init-param>
+
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<!-- 拦截所有请求 -->
+	<servlet-mapping>
+		<!-- 这里的名字要和上面的servlet-name统一 -->
+		<servlet-name>spring-mvc</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+</web-app>
